@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        //classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:1.1.2+'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion ${compile_version}
+    buildToolsVersion "${build_version}"
+
+    defaultConfig {
+        applicationId = '${package_name}'
+        versionCode ${version_code}
+        versionName '${version_name}'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'ApkUnsheller/AndroidManifest.xml'
+            java.srcDirs = ['ApkUnsheller/src']
+            //aidl.srcDirs = ['src']
+            //renderscript.srcDirs = ['src']
+            res.srcDirs = ['ApkUnsheller/res']
+            assets.srcDirs = ['ApkUnsheller/assets']
+            jniLibs.srcDirs=['ApkUnsheller/libs']
+        }
+
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled ${proguard}
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard.txt'
+        }
+        release {
+            minifyEnabled ${proguard}
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard.txt'
+        }
+	}
+
+    packagingOptions {
+      exclude 'META-INF/DEPENDENCIES'
+      exclude 'META-INF/NOTICE'
+      exclude 'META-INF/LICENSE'
+      exclude 'META-INF/LICENSE.txt'
+      exclude 'META-INF/NOTICE.txt'
+    }
+
+}
