@@ -1,2 +1,0 @@
--dontwarn ${application}
--keep class ${application}{*;}
